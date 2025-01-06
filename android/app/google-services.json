@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "786420067581",
+    "project_id": "millys-e2eb1",
+    "storage_bucket": "millys-e2eb1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786420067581:android:30bcc726b356da43f46294",
+        "android_client_info": {
+          "package_name": "com.millysshop.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJYXzMWDY-TitKoDch9T2r15f-fR0ojXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
