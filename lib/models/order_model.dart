@@ -14,9 +14,9 @@ class DeliverySlot {
 
   factory DeliverySlot.fromJson(Map<String, dynamic> json) {
     return DeliverySlot(
-      deliverySlotId: json['deliverySlotId'],
-      date: json['date'],
-      timePeriod: json['timePeriod'],
+      deliverySlotId: json['deliverySlotId'] ?? '',
+      date: json['date'] ?? '',
+      timePeriod: json['timePeriod'] ?? '',
     );
   }
 
@@ -28,8 +28,6 @@ class DeliverySlot {
     };
   }
 }
-
-// Model for Product
 
 // Model for Item
 class Item {
@@ -49,11 +47,25 @@ class Item {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
-      product: Product.fromJson(json['product']),
-      name: json['name'],
-      price: double.parse(json['price'].toString()),
-      quantity: json['quantity'].toString(),
-      id: json['_id'],
+      product: json['product'] != null
+          ? Product.fromJson(json['product'])
+          : Product(
+              id: '',
+              name: '',
+              price: 12,
+              description: '',
+              subcategory: '',
+              image: '',
+              stock: 1,
+              discount:
+                  1), // Assuming Product.empty() is a default constructor for Product
+      name: json['name'] ?? '',
+      price: (json['price'] != null
+              ? double.tryParse(json['price'].toString())
+              : 0.0) ??
+          0.0,
+      quantity: json['quantity']?.toString() ?? '0',
+      id: json['_id'] ?? '',
     );
   }
 
@@ -94,15 +106,24 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      deliverySlot: DeliverySlot.fromJson(json['deliverySlot']),
-      id: json['_id'],
-      orderId: json['orderId'],
-      user: json['user'],
-      items: List<Item>.from(json['items'].map((item) => Item.fromJson(item))),
-      expectedDeliveryDate: json['expectedDeliveryDate'],
-      totalAmount: json['totalAmount'].toDouble(),
-      voucherUsed: json['voucherUsed'],
-      status: json['status'],
+      deliverySlot: json['deliverySlot'] != null
+          ? DeliverySlot.fromJson(json['deliverySlot'])
+          : DeliverySlot(
+              deliverySlotId: '',
+              date: '',
+              timePeriod: '',
+            ),
+      id: json['_id'] ?? '',
+      orderId: json['orderId'] ?? '',
+      user: json['user'] ?? '',
+      items: (json['items'] as List<dynamic>? ?? [])
+          .map((item) => Item.fromJson(item))
+          .toList(),
+      expectedDeliveryDate: json['expectedDeliveryDate'] ?? '',
+      totalAmount:
+          (json['totalAmount'] != null ? json['totalAmount'].toDouble() : 0.0),
+      voucherUsed: json['voucherUsed'] ?? false,
+      status: json['status'] ?? '',
     );
   }
 

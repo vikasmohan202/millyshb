@@ -86,6 +86,9 @@ class _ProductListState extends State<ProductList> {
     super.initState();
 
     // Add a listener to the search controller
+    _getProductList(
+      widget.id,
+    );
     _searchController.addListener(() {
       _filterProducts();
     });
@@ -100,6 +103,19 @@ class _ProductListState extends State<ProductList> {
       _filteredProducts = productProvider.products.where((product) {
         return product.name.toLowerCase().contains(query);
       }).toList();
+    });
+  }
+
+  void _getProductList(String id) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    await productProvider.getListOfProduct(id, context);
+    setState(() {
+      isLoading = false;
     });
   }
 

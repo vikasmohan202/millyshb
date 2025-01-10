@@ -212,6 +212,7 @@ class ProductProvider with ChangeNotifier {
           productList = (response.data["data"] as List)
               .map((item) => Product.fromJson(item))
               .toList();
+          _searchedProduct = productList;
         }
       } else {
         _showErrorSnackbar(context, 'Internal server error');
